@@ -1,0 +1,286 @@
+/* Container */
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 70px; /* Default collapsed width */
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    overflow-x: hidden;
+    transition: width 0.3s ease;
+    z-index: 1000; /* Ensure sidebar is on top */
+}
+
+.sidebar:hover {
+    width: 250px; /* Expanded width */
+}
+
+.sidebar .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    transition: transform 0.3s ease; /* Smooth transform transition */
+    position: absolute; /* Position logo absolutely */
+    left: 10px; /* Position logo at the left side */
+    top: 20px; /* Adjust as needed */
+    z-index: 2; /* Ensure logo is on top */
+}
+
+.sidebar .logo img {
+    width: 100%; /* Make image fit container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.sidebar:hover .logo {
+    transform: translateX(50px); /* Move logo to the center when expanded */
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 100px; /* Ensure space at the top for the logo */
+}
+
+.sidebar nav ul li {
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1; /* Ensure text is below the logo */
+}
+
+.sidebar nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    z-index: 1; /* Ensure text is below the logo */
+}
+
+.sidebar nav ul li .full-text {
+    display: none; /* Hide full text by default */
+    position: absolute;
+    left: 70px; /* Position text to the right of the collapsed sidebar */
+    top: 0;
+    color: #fff;
+    padding: 10px;
+    white-space: nowrap;
+    z-index: 1; /* Ensure text is below the logo */
+}
+
+.sidebar:hover nav ul li .full-text {
+    display: inline; /* Show full text when expanded */
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #464646;
+}
+
+.sidebar .group-menu:hover .sub-menu {
+    display: block; /* Show sub-menu on hover */
+}
+
+.sidebar .sub-menu {
+    display: none; /* Hide sub-menu by default */
+    background-color: #444444;
+    padding: 10px;
+    position: absolute;
+    left: 70px; /* Position to the right of the sidebar */
+    top: 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 180px; /* Width of the sub-menu */
+    z-index: 1; /* Ensure sub-menu is below the logo */
+}
+
+.sidebar .sub-menu li {
+    margin-bottom: 0;
+}
+
+.sidebar .sub-menu li a {
+    padding: 10px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar .sub-menu li a:hover {
+    background-color: #444444;
+}
+
+/* Main Content */
+main {
+    margin-left: 70px; /* Match the collapsed width of the sidebar */
+    flex: 1;
+    transition: margin-left 0.3s ease;
+}
+
+/* Adjust margin based on sidebar width */
+.sidebar:hover ~ main {
+    margin-left: 250px; /* Match the expanded width of the sidebar */
+}
+
+/* Header */
+header {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    box-sizing: flex; /* Fix the box-sizing issue */
+}
+
+/* Dashboard Layout */
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-container {
+    flex: 2;
+    margin: 0 20px; /* Add margin to avoid overlap with sidebar */
+}
+
+.metrics {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.metric {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.metric h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.metric p {
+    font-size: 24px;
+    margin: 5px 0 0;
+    color: #333;
+}
+
+/* iFrame Container */
+.iframe-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* Aspect ratio for 16:9 (100% * 9 / 16) */
+    height: 0;
+    overflow: hidden;
+    max-width: 95%; /* Max width of the container */
+    margin: 0 auto; /* Center horizontally */
+    margin-left: 80px; /* Offset to make room for collapsed sidebar */
+    transition: margin-left 0.3s ease; /* Smooth transition for margin */
+    z-index: 1; /* Ensure iframe container is below sidebar */
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.sidebar:hover ~ .iframe-container {
+    margin-left: 100px; /* Adjust based on expanded sidebar width */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('BlackGround.jpg'); /* ระบุที่อ ยู่ของรูปภาพพื้นหลัง */
+    background-size: cover; /* ขยายภาพพื้นหลังให้ครอบคลุมพื้นที่ทั้งหมด */
+    background-position: center; /* จัดตำแหน่งภาพพื้นหลังให้กลาง */
+    background-repeat: no-repeat; /* ไม่ให้ภาพพื้นหลังซ้ำ */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 50px; /* Collapsed width for smaller screens */
+    }
+
+    .sidebar:hover {
+        width: 200px; /* Expanded width for smaller screens */
+    }
+
+    .sidebar .logo {
+        left: 5px;
+        top: 10px;
+    }
+
+    .sidebar nav ul {
+        margin-top: 80px; /* Adjust spacing for smaller screens */
+    }
+
+    main {
+        margin-left: 50px; /* Match the collapsed width of the sidebar for smaller screens */
+    }
+
+    .sidebar:hover ~ main {
+        margin-left: 200px; /* Match the expanded width of the sidebar for smaller screens */
+    }
+
+    .iframe-container {
+        margin-left: 50px; /* Offset for collapsed sidebar on smaller screens */
+    }
+
+    .sidebar:hover ~ .iframe-container {
+        margin-left: 200px; /* Adjust based on expanded sidebar width for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 40px; /* Collapsed width for very small screens */
+    }
+
+    .sidebar:hover {
+        width: 160px; /* Expanded width for very small screens */
+    }
+
+    .sidebar .logo {
+        left: 2px;
+        top: 5px;
+    }
+
+    .sidebar nav ul {
+        margin-top: 60px; /* Adjust spacing for very small screens */
+    }
+
+    main {
+        margin-left: 40px; /* Match the collapsed width of the sidebar for very small screens */
+    }
+
+    .sidebar:hover ~ main {
+        margin-left: 160px; /* Match the expanded width of the sidebar for very small screens */
+    }
+
+    .iframe-container {
+        margin-left: 40px; /* Offset for collapsed sidebar on very small screens */
+    }
+
+    .sidebar:hover ~ .iframe-container {
+        margin-left: 160px; /* Adjust based on expanded sidebar width for very small screens */
+    }
+}
