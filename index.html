@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@powerbi/client@latest/dist/powerbi.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.19/auth0-spa-js.production.js"></script>
+    
 </head>
 <body >
     <div class="container">
@@ -53,5 +55,46 @@
         <div class ="iframe-container">
             <iframe title="Final" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiZDNiMTEwN2QtNDdmOS00Y2U4LTgxNjctMWUwNjlkYzliNWYzIiwidCI6IjE5M2NiYWRlLTA1MjAtNDBjNS1iNmUzLTlmMGEzOWQ3OTdhMSIsImMiOjEwfQ%3D%3D&pageName=662aa1d0c3e369c27066" frameborder="0" allowFullScreen="true"></iframe>
         </div>
+    </div>
+    <script>
+      // สร้างอินสแตนซ์ของ Auth0
+      let auth0Client = null;
+    
+      // ฟังก์ชันเพื่อเริ่มการยืนยันตัวตน
+      const configureClient = async () => {
+        auth0Client = await createAuth0Client({
+          domain: "dev-lb8qcr3uz4bxcpsf.us.auth0.com",
+          client_id: "UOYJ7UVyYQAjNluoTfszUcrQgr1z8zQk"
+        });
+      };
+    
+      // ฟังก์ชันเพื่อตรวจสอบการล็อกอินของผู้ใช้
+      const checkLogin = async () => {
+        const isAuthenticated = await auth0Client.isAuthenticated();
+    
+        if (isAuthenticated) {
+          // ผู้ใช้ล็อกอินแล้ว
+          const user = await auth0Client.getUser();
+          console.log(user);
+          // ตรวจสอบโดเมนของอีเมล
+          if (user.email.endsWith('@tcrbank.com')) {
+            document.getElementById('content').style.display = 'block';
+          } else {
+            alert('Access denied: You must use a company email.');
+            window.location.href = 'https://your-unauthorized-page.com';
+          }
+        } else {
+          // ผู้ใช้ยังไม่ได้ล็อกอิน
+          await auth0Client.loginWithRedirect({
+            redirect_uri: window.location.origin
+          });
+        }
+      };
+    
+      window.onload = async () => {
+        await configureClient();
+        await checkLogin();
+      };
+    </script> 
 </body>
 </html>
