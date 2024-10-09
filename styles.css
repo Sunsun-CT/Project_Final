@@ -7,7 +7,7 @@
 /* Sidebar */
 .sidebar {
     width: 70px; /* Default collapsed width */
-    background-color: #333;
+    background-color: #222;
     color: #fff;
     padding: 20px;
     position: fixed;
@@ -28,31 +28,55 @@
     width: 60px;
     height: 60px;
     transition: transform 0.3s ease; /* Smooth transform transition */
-    position: absolute; /* Position logo absolutely */
     left: 10px; /* Position logo at the left side */
     top: 20px; /* Adjust as needed */
     z-index: 2; /* Ensure logo is on top */
 }
 
-.sidebar .logo img {
-    width: 100%; /* Make image fit container */
-    height: auto; /* Maintain aspect ratio */
-}
-
 .sidebar:hover .logo {
-    transform: translateX(50px); /* Move logo to the center when expanded */
+    transform: translateX(80%); /* Move logo to the center when expanded */
 }
 
 .sidebar nav ul {
     list-style: none;
     padding: 0;
-    margin-top: 100px; /* Ensure space at the top for the logo */
 }
 
 .sidebar nav ul li {
-    margin-bottom: 10px;
     position: relative;
-    z-index: 1; /* Ensure text is below the logo */
+}
+
+/* Hide submenu by default */
+.sidebar nav ul li ul {
+    display: none;
+    margin: 0;
+    background-color: #222;
+    padding: 0;
+}
+
+/* Show submenu when hovering over parent li */
+.sidebar nav ul li:hover ul {
+    display: block; /* Show submenu */
+    /* position: absolute;  */
+    top: 100%; /* Align submenu directly below the parent */
+    left: 0; /* Align left edge of submenu with left edge of parent */
+    z-index: 1; /* Ensure submenu appears above other content */
+}
+
+.sidebar nav ul li ul li {
+    width: 100%;
+}
+
+.sidebar nav ul li ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar nav ul li ul li a:hover {
+    background-color: #444;
 }
 
 .sidebar nav ul li a {
@@ -66,58 +90,32 @@
     overflow: hidden;
     text-overflow: ellipsis;
     position: relative;
-    z-index: 1; /* Ensure text is below the logo */
+    z-index: 1;
+    background-color: #222;
+}
+
+.sidebar nav ul li a.active {
+    background-color: #1e1e1e;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active:hover {
+    background-color: #555;
 }
 
 .sidebar nav ul li .full-text {
-    display: none; /* Hide full text by default */
+    display: none;
     position: absolute;
-    left: 70px; /* Position text to the right of the collapsed sidebar */
-    top: 0;
+    left: 70px;
+    top: 0px;
     color: #fff;
     padding: 10px;
     white-space: nowrap;
-    z-index: 1; /* Ensure text is below the logo */
+    z-index: 1;
 }
 
 .sidebar:hover nav ul li .full-text {
-    display: inline; /* Show full text when expanded */
-}
-
-.sidebar nav ul li a:hover {
-    background-color: #464646;
-}
-
-.sidebar .group-menu:hover .sub-menu {
-    display: block; /* Show sub-menu on hover */
-}
-
-.sidebar .sub-menu {
-    display: none; /* Hide sub-menu by default */
-    background-color: #444444;
-    padding: 10px;
-    position: absolute;
-    left: 70px; /* Position to the right of the sidebar */
-    top: 0;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 180px; /* Width of the sub-menu */
-    z-index: 1; /* Ensure sub-menu is below the logo */
-}
-
-.sidebar .sub-menu li {
-    margin-bottom: 0;
-}
-
-.sidebar .sub-menu li a {
-    padding: 10px;
-    display: block;
-    color: #fff;
-    text-decoration: none;
-}
-
-.sidebar .sub-menu li a:hover {
-    background-color: #444444;
+    display: inline;
 }
 
 /* Main Content */
@@ -129,7 +127,7 @@ main {
 
 /* Adjust margin based on sidebar width */
 .sidebar:hover ~ main {
-    margin-left: 250px; /* Match the expanded width of the sidebar */
+    margin-left: 250px;
 }
 
 /* Header */
@@ -139,7 +137,7 @@ header {
     padding: 10px;
     text-align: center;
     width: 100%;
-    box-sizing: flex; /* Fix the box-sizing issue */
+    box-sizing: flex;
 }
 
 /* Dashboard Layout */
@@ -150,7 +148,7 @@ header {
 
 .chart-container {
     flex: 2;
-    margin: 0 20px; /* Add margin to avoid overlap with sidebar */
+    margin: 0 20px;
 }
 
 .metrics {
@@ -182,14 +180,14 @@ header {
 .iframe-container {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; /* Aspect ratio for 16:9 (100% * 9 / 16) */
+    padding-top: 56.25%; /* Aspect ratio for 16:9 */
     height: 0;
     overflow: hidden;
-    max-width: 95%; /* Max width of the container */
-    margin: 0 auto; /* Center horizontally */
-    margin-left: 80px; /* Offset to make room for collapsed sidebar */
-    transition: margin-left 0.3s ease; /* Smooth transition for margin */
-    z-index: 1; /* Ensure iframe container is below sidebar */
+    max-width: 95%;
+    margin: 0 auto;
+    margin-left: 80px;
+    transition: margin-left 0.3s ease;
+    z-index: 1;
 }
 
 .iframe-container iframe {
@@ -202,16 +200,23 @@ header {
 }
 
 .sidebar:hover ~ .iframe-container {
-    margin-left: 100px; /* Adjust based on expanded sidebar width */
+    margin-left: 100px;
 }
 
+/* Body Background */
 body {
     margin: 0;
     padding: 0;
-    background-image: url('BlackGround.jpg'); /* ระบุที่อ ยู่ของรูปภาพพื้นหลัง */
-    background-size: cover; /* ขยายภาพพื้นหลังให้ครอบคลุมพื้นที่ทั้งหมด */
-    background-position: center; /* จัดตำแหน่งภาพพื้นหลังให้กลาง */
-    background-repeat: no-repeat; /* ไม่ให้ภาพพื้นหลังซ้ำ */
+    background-image: url('BlackGround.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
 }
 
 /* Responsive Adjustments */
@@ -231,6 +236,11 @@ body {
 
     .sidebar nav ul {
         margin-top: 80px; /* Adjust spacing for smaller screens */
+    }
+
+    .sidebar nav ul li a {
+        font-size: 14px; /* Decrease font size for smaller screens */
+        padding: 8px;    /* Reduce padding for better fit */
     }
 
     main {
