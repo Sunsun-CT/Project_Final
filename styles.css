@@ -52,12 +52,12 @@
     margin: 0;
     background-color: #222;
     padding: 0;
+    font-size: 12px;
 }
 
 /* Show submenu when hovering over parent li */
 .sidebar nav ul li:hover ul {
     display: block; /* Show submenu */
-    /* position: absolute;  */
     top: 100%; /* Align submenu directly below the parent */
     left: 0; /* Align left edge of submenu with left edge of parent */
     z-index: 1; /* Ensure submenu appears above other content */
@@ -82,7 +82,6 @@
 .sidebar nav ul li a {
     color: #fff;
     text-decoration: none;
-    display: block;
     padding: 10px;
     border-radius: 4px;
     transition: background 0.3s;
@@ -98,6 +97,18 @@
     background-color: #1e1e1e;
 }
 
+.sidebar nav ul li a::before {
+    content: attr(data-letter); /* Add the letter using a data attribute */
+    position: absolute;
+    left: 10px;
+    font-size: 24px;
+    color: white;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar:hover nav ul li a::before {
+    opacity: 0; /* Hide the letter on hover */
+}
 .sidebar nav ul li a:hover,
 .sidebar nav ul li a.active:hover {
     background-color: #555;
@@ -109,7 +120,7 @@
     left: 70px;
     top: 0px;
     color: #fff;
-    padding: 10px;
+    padding: 60%;
     white-space: nowrap;
     z-index: 1;
 }
